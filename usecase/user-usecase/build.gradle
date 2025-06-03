@@ -1,4 +1,4 @@
 dependencies {
     implementation(project(":usecase:core"))
-    implementation(project(":adapter:demo-mysql"))
+    implementation(project(":adapter:user-postgresql"))
 }
