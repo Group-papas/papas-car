@@ -3,14 +3,14 @@ CREATE TABLE USERS (
    nickname VARCHAR(50) NOT NULL, -- 사용자 이름
    birthday DATE NOT NULL, -- 생년월일
    gender VARCHAR(1) NOT NULL, -- 성별
-   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL, -- 가입일
-)
+   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL -- 가입일
+);
 
 CREATE TABLE follower (
   follower_id SERIAL, -- 고유 식별 아이디
   from_user BIGINT NOT NULL,     -- 팔로우 하는 사람
   to_user BIGINT NOT NULL,    -- 팔로우 당하는 사람
-  followed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,  -- 팔로우 시점
+  followed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL  -- 팔로우 시점
 );
 
 CREATE TABLE CAR (
@@ -47,17 +47,17 @@ CREATE TABLE CAR_IMAGE (
   is_thumbnail boolean NOT NULL, -- 썸네일 여부
   car_id INTEGER NOT NULL, -- 차 참조 아이디
   created_at TIMESTAMP NOT NULL -- 이미지 생성 날짜
-)
+);
 
 CREATE TABLE HASHTAG (
   hashtag_id SERIAL NOT NULL PRIMARY KEY, -- 해쉬태그 고유 식별 아이디
   name VARCHAR(100) NOT NULL, -- 해쉬태그 이름
-  created_at TIMESTAMP NOT NULL, -- 해쉬태그 생성 일시
-)
+  created_at TIMESTAMP NOT NULL -- 해쉬태그 생성 일시
+);
 
 CREATE TABLE CAR_HASHTAG_MAPPING (
   car_hashtag_id SERIAL NOT NULL PRIMARY KEY, -- 차-해쉬태그 매핑 고유 식별 아이디
   car_id INTEGER, -- 차 참조 아이디
   hashtag_id INTEGER, -- 해쉬태그 참조 아이디
   created_at TIMESTAMP NOT NULL -- 매핑 생성 일시
-)
+);
