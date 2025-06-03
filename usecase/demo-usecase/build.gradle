@@ -1,0 +1,6 @@
+dependencies {
+    implementation(project(":usecase:core"))
+    implementation(project(":adapter:demo-mysql"))
+
+    implementation 'org.springframework.boot:spring-boot-starter'
+}

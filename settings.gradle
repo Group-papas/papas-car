@@ -1,0 +1,11 @@
+rootProject.name = 'car'
+
+include 'api'
+include 'api:demo'
+
+include 'adapter'
+include 'adapter:demo-mysql'
+
+include 'usecase'
+include 'usecase:core'
+include 'usecase:demo-usecase'
