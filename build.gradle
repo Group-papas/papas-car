@@ -28,6 +28,7 @@ subprojects {
         compileOnly {
             extendsFrom annotationProcessor
         }
+        mockitoAgent
     }
 
     repositories {
@@ -49,9 +50,16 @@ subprojects {
 
         testImplementation "org.springframework.boot:spring-boot-starter-test"
         testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+        testImplementation "org.mockito:mockito-core:5.14.0"
+        mockitoAgent("org.mockito:mockito-core:5.14.0") {
+            transitive = false
+        }
+
     }
 
     tasks.named('test') {
+        jvmArgs "-javaagent:${configurations.testRuntimeClasspath.find { it.name.contains('mockito-core') }}", '-Xshare:off'
         useJUnitPlatform()
     }
 }
