@@ -6,8 +6,8 @@ CREATE TABLE USERS (
    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL -- 가입일
 );
 
-CREATE TABLE follower (
-  follower_id SERIAL, -- 고유 식별 아이디
+CREATE TABLE follow (
+  follow_id SERIAL, -- 고유 식별 아이디
   from_user BIGINT NOT NULL,     -- 팔로우 하는 사람
   to_user BIGINT NOT NULL,    -- 팔로우 당하는 사람
   followed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL  -- 팔로우 시점
