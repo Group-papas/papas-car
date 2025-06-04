@@ -3,15 +3,18 @@ rootProject.name = 'car'
 include 'api'
 include 'api:demo'
 include 'api:user-api'
+include 'api:follow-api'
 
 include 'adapter'
 include 'adapter:demo-mysql'
 include 'adapter:user-postgresql'
+include 'adapter:follow-postgresql'
 
 include 'usecase'
 include 'usecase:core'
 include 'usecase:demo-usecase'
 include 'usecase:user-usecase'
+include 'usecase:follow-usecase'
 
 include 'domain'
 include 'common'
