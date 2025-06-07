@@ -28,7 +28,6 @@ CREATE TABLE CAR (
   size           VARCHAR(10) NOT NULL, -- 차량 크기
   type           VARCHAR(10) NOT NULL, -- 차종
   color          VARCHAR(10) NOT NULL, -- 색상
-  image_url      VARCHAR(255) NOT NULL, -- 차량 사진
   brand          VARCHAR(50) NOT NULL, -- 브랜드명
   vin            VARCHAR(50) NOT NULL, -- 차대 번호
   lat            double precision NOT NULL, -- 위도
@@ -45,7 +44,7 @@ CREATE TABLE CAR_IMAGE (
   file_path VARCHAR(255) NOT NULL, -- 저장 경로
   extension VARCHAR(10) NOT NULL, -- 확장자
   is_thumbnail boolean NOT NULL, -- 썸네일 여부
-  car_id INTEGER NOT NULL, -- 차 참조 아이디
+  car_id INTEGER, -- 차 참조 아이디
   created_at TIMESTAMP NOT NULL -- 이미지 생성 날짜
 );
 
