@@ -3,6 +3,7 @@ package com.papas.car;
 import lombok.Value;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Value
 public class Car {
@@ -27,12 +28,14 @@ public class Car {
     LocalDateTime postingDate; // 게시 일시
     String region; // 판매 지역
     Long userId; // 판매자 참조 아이디
+    List<Long> imgIds;
+    List<String> hashtags;
 
     public static Car generate(Integer price, Integer year, String manufacturer, String model, String condition,
                                Integer engine, Long odometer, String titleStatus, String transmission, String drive,
                                String size, String type, String color, String brand, String vin, Double lat, Double lon,
-                               LocalDateTime postingDate, String region, Long userId) {
+                               LocalDateTime postingDate, String region, Long userId, List<Long> imgIds, List<String> hashtags) {
         return new Car(null, price, year, manufacturer, model, condition, engine, odometer, titleStatus,
-                transmission, drive, size, type, color, brand, vin, lat, lon, postingDate, region, userId);
+                transmission, drive, size, type, color, brand, vin, lat, lon, postingDate, region, userId, imgIds, hashtags);
     }
 }

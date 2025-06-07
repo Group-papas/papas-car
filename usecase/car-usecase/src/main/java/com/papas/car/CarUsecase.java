@@ -4,10 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public interface CarUsecase {
 
     Car create(Request request);
+    Long saveCarImage(SaveImageRequest request);
 
     @AllArgsConstructor
     @Data
@@ -32,5 +34,15 @@ public interface CarUsecase {
         LocalDateTime postingDate; // 게시 일시
         String region; // 판매 지역
         Long userId; // 판매자 참조 아이디
+        List<Long> imgIds;
+        List<String> hashtags;
+    }
+
+    @AllArgsConstructor
+    @Data
+    class SaveImageRequest {
+        byte[] data;
+        String originalFilename;
+        boolean thumbnail;
     }
 }

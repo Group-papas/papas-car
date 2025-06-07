@@ -13,11 +13,13 @@ public class FollowAdapter implements FollowPort {
 
     private final FollowRepository followRepository;
 
+    // 팔로우 메서드
     @Override
     public void follow(Long fromUserId, Long toUserId) {
         followRepository.save(FollowEntity.create(fromUserId, toUserId));
     }
 
+    // 언팔로우 메서드1, fromUser 와 toUser 로 언팔로우 처리
     @Override
     public void unfollowBy(Long fromUserId, Long toUserId) {
         FollowEntity followEntity = followRepository.findByFromUserAndToUser(fromUserId, toUserId)
@@ -25,6 +27,7 @@ public class FollowAdapter implements FollowPort {
         followRepository.delete(followEntity);
     }
 
+    // 언팔로우 메서드2, follow 고유 아이디로 언팔로우 처리
     @Override
     public void unfollowBy(Long followId) {
         FollowEntity followEntity = followRepository.findById(followId)
@@ -32,6 +35,7 @@ public class FollowAdapter implements FollowPort {
         followRepository.delete(followEntity);
     }
 
+    // 특정 사용자가 팔로우하는 사용자를 조회하는 메서드
     @Override
     public List<Follow> getFollowsByFromUserId(Long fromUser) {
         return followRepository.findByFromUser(fromUser).stream()
@@ -39,6 +43,7 @@ public class FollowAdapter implements FollowPort {
                 .toList();
     }
 
+    // 특정 사용자를 팔로우하는 팔로워를 조회하는 메서드
     @Override
     public List<Follow> getFollowsByToUserId(Long toUser) {
         return followRepository.findByToUser(toUser).stream()
