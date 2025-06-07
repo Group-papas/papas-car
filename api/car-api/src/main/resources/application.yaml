@@ -3,7 +3,8 @@ server:
 
 img:
   car:
-    dir: /Users/anseongjin/workspace/papas/car/imgs
+#    dir: /Users/anseongjin/workspace/papas/car/imgs
+    dir: /Users/ssiky/papaswatch/pascar/imgs
 
 spring:
   datasource:
@@ -23,3 +24,18 @@ spring:
         default_batch_fetch_size: 100
         jdbc:
           fetch_size: 100
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    consumer:
+      group-id: papascar-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: com.papas
+kafka:
+  topic:
+    new-car-event: new-car-event

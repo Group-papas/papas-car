@@ -31,7 +31,7 @@ public class CarService implements CarUsecase {
     // car rdb port
     private final CarPort carPort;
     // car kafka port
-    //private final CarMessageProducePort carMessageProducePort;
+    private final CarMessageProducePort carMessageProducePort;
 
     /**
      * 중고차를 저장하는 메서드
@@ -49,7 +49,7 @@ public class CarService implements CarUsecase {
         );
         // 2. Kafka message 발행처리. with CarMessageProducePort
         SaveCarEvent saveCarEvent = SaveCarEvent.of(car.getUserId(), car.getCarId());
-        //carMessageProducePort.sendCarMessage(saveCarEvent);
+        carMessageProducePort.sendCarMessage(saveCarEvent);
 
         return car;
     }
