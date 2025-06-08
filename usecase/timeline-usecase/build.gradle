@@ -1,0 +1,5 @@
+dependencies {
+    implementation(project(":usecase:core"))
+    implementation(project(":adapter:follow-postgresql"))
+    implementation(project(":adapter:mongodb"))
+}

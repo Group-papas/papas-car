@@ -1,4 +1,5 @@
 dependencies {
     implementation(project(":usecase:car-usecase"))
+    implementation(project(":usecase:timeline-usecase"))
     implementation 'org.springframework.boot:spring-boot-starter-web'
 }

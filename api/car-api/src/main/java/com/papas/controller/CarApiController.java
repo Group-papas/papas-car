@@ -2,11 +2,14 @@ package com.papas.controller;
 
 import com.papas.Response;
 import com.papas.car.CarUsecase;
+import com.papas.car.ResolvedCar;
+import com.papas.timeline.ReadTimelineUsecase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 @RequiredArgsConstructor
 @RequestMapping("/cars")
@@ -14,6 +17,7 @@ import java.io.IOException;
 public class CarApiController {
 
     private final CarUsecase carUsecase;
+    private final ReadTimelineUsecase readTimelineUsecase;
 
     /**
      * 중고차를 저장하는 API
@@ -36,5 +40,13 @@ public class CarApiController {
     public Response<Void> uploadImage(@RequestPart("file") MultipartFile file, @RequestParam("isThumbnail") Boolean isThumbnail) throws IOException {
         carUsecase.saveCarImage(new CarUsecase.SaveImageRequest(file.getBytes(), file.getOriginalFilename(), isThumbnail));
         return Response.justOk();
+    }
+
+    @GetMapping("/{userId}/timelines")
+    public Response<List<ResolvedCar>> timelines(
+            @PathVariable("userId") Long userId,
+            @RequestParam(name = "page", defaultValue = "0", required = false) int page
+    ) {
+        return Response.success(readTimelineUsecase.readTimeline(userId, page));
     }
 }
