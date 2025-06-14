@@ -12,19 +12,19 @@ services:
       - ./.data/sql/init.sql:/docker-entrypoint-initdb.d/init.sql
       - ./.data/postgres:/var/lib/postgresql/data
 
-#  mongodb:
-#    image: 'mongo:7.0.3'
-#    container_name: mongodb
-#    ports:
-#      - "27017:27017"
-#    environment:
-#      - MONGO_INITDB_ROOT_USERNAME=admin
-#      - MONGO_INITDB_ROOT_PASSWORD=1234
-#      - MONGO_INITDB_DATABASE=papascar
-#    volumes:
-#      - ./.data/mongodb:/data/db
-#
-#
+  mongodb:
+    image: 'mongo:7.0.3'
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=1234
+      - MONGO_INITDB_DATABASE=papascar
+    volumes:
+      - ./.data/mongodb:/data/db
+
+
   zookeeper:
     image: 'bitnami/zookeeper:3.7.2'
     container_name: zookeeper
