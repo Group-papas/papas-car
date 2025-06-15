@@ -1,5 +1,7 @@
-package com.papas.follow;
+package com.papas.car;
 
+import com.papas.follow.Follow;
+import com.papas.follow.FollowPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

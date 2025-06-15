@@ -92,8 +92,8 @@ Content-Type: application/json
   "lon": 127.000001,
   "postingDate": "2025-06-06 17:00:00",
   "region": "ulsan",
-  "userId": 1,
-  "imgIds": [3],
+  "userId": 10000,
+  "imgIds": [1],
   "hashtags": ["good", "hyundai"]
 }
 

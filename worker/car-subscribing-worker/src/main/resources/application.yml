@@ -1,6 +1,15 @@
-server:
-  port: 8081
+kafka:
+  topic:
+    new-car-event: new-car-event
+  group:
+    new-car: new-car-event-group
+
 spring:
+  kafka:
+    bootstrap-servers: localhost:9092
+  data:
+    mongodb:
+      uri: mongodb://admin:1234@localhost:27017/papascar?authSource=admin
   datasource:
     hikari:
       jdbc-url: jdbc:postgresql://localhost:5432/papascar

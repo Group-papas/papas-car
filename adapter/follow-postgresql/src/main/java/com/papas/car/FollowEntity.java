@@ -1,4 +1,4 @@
-package com.papas;
+package com.papas.car;
 
 import jakarta.persistence.*;
 import lombok.Getter;

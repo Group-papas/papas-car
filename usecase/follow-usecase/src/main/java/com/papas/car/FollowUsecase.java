@@ -1,4 +1,6 @@
-package com.papas.follow;
+package com.papas.car;
+
+import com.papas.follow.Follow;
 
 import java.util.List;
 

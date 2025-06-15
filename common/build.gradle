@@ -1,3 +1,11 @@
+plugins {
+    id 'java-library'
+}
+
 dependencies {
-    implementation 'com.fasterxml.jackson.core:jackson-annotations'
+    api 'com.fasterxml.jackson.core:jackson-core'
+    api 'com.fasterxml.jackson.core:jackson-databind'
+    api 'com.fasterxml.jackson.core:jackson-annotations'
+    api 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310' // Java 8 날짜 지원
+    //implementation 'com.fasterxml.jackson.core:jackson-annotations'
 }
