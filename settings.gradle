@@ -11,7 +11,9 @@ include 'adapter:demo-mysql'
 include 'adapter:user-postgresql'
 include 'adapter:follow-postgresql'
 include 'adapter:car-postgresql'
-include 'adapter:car-kafka-producer'
+//include 'adapter:car-kafka' // kafka 로 수정
+include 'adapter:mongodb'
+include 'adapter:kafka'
 
 include 'usecase'
 include 'usecase:core'
@@ -19,6 +21,11 @@ include 'usecase:demo-usecase'
 include 'usecase:user-usecase'
 include 'usecase:follow-usecase'
 include 'usecase:car-usecase'
+include 'usecase:timeline-usecase'
+include 'usecase:subscribing-newcar-usecase'
+
+include 'worker'
+include 'worker:car-subscribing-worker'
 
 include 'domain'
 include 'common'

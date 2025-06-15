@@ -2,7 +2,7 @@ package com.papas.controller;
 
 import com.papas.Response;
 import com.papas.follow.Follow;
-import com.papas.follow.FollowUsecase;
+import com.papas.car.FollowUsecase;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;

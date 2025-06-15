@@ -1,3 +1,7 @@
+plugins {
+    id 'java-library'     // ← api/implementation 분리가려면 반드시 java-library 사용
+}
+
 dependencies {
     implementation(project(":usecase:core"))
     implementation(project(":adapter:follow-postgresql"))

@@ -3,8 +3,8 @@ server:
 
 img:
   car:
-#    dir: /Users/anseongjin/workspace/papas/car/imgs
-    dir: /Users/ssiky/papaswatch/pascar/imgs
+    dir: /Users/anseongjin/workspace/papas/car/imgs
+#    dir: /Users/ssiky/papaswatch/pascar/imgs
 
 spring:
   datasource:
@@ -24,6 +24,9 @@ spring:
         default_batch_fetch_size: 100
         jdbc:
           fetch_size: 100
+  data:
+    mongodb:
+      uri: mongodb://admin:1234@localhost:27017/papascar?authSource=admin
   kafka:
     bootstrap-servers: localhost:9092
     producer:

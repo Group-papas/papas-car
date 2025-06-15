@@ -61,4 +61,10 @@ public class CarAdapter implements CarPort{
         carImageRepository.save(entity);
         return CarImageEntityConverter.toModel(entity);
     }
+
+    @Override
+    public List<ResolvedCar> readResolvedCars(List<Long> carIds) {
+        List<ResolvedCar> resolvedCars = carRepository.findResolvedCars(carIds);
+        return resolvedCars;
+    }
 }

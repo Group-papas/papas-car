@@ -1,0 +1,5 @@
+dependencies {
+    implementation(project(":adapter:kafka"))
+    implementation project(":usecase:follow-usecase")
+    implementation(project(":usecase:subscribing-newcar-usecase"))
+}
