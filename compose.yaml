@@ -23,7 +23,13 @@ services:
       - MONGO_INITDB_DATABASE=papascar
     volumes:
       - ./.data/mongodb:/data/db
-
+  redis:
+    image: 'redis:6.0.20'
+    container_name: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./.data/redis:/data
 
   zookeeper:
     image: 'bitnami/zookeeper:3.7.2'
