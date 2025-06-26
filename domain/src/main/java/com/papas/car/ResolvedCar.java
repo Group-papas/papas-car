@@ -1,13 +1,11 @@
 package com.papas.car;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-@AllArgsConstructor
 @NoArgsConstructor
 @Data
 public class ResolvedCar {
@@ -17,20 +15,24 @@ public class ResolvedCar {
     private Long odometer; // 주행거리
     private String region; // 지역
     private LocalDateTime postingDate; // 게시 일시
-    private String imgFilePath; // 썸네일 파일경로
-    private String imgHashName; // 썸네일 해쉬네임
-    private String imgExt; // 썸네일 확장자
-    private List<String> hashtags; // 해쉬태그
 
-    public ResolvedCar(Long carId, Integer price, Integer year, Long odometer, String region, LocalDateTime postingDate, String imgFilePath, String imgHashName, String imgExt) {
+    private Long userId; // 판매자 아이디
+
+    private String nickname;
+    private List<ResolvedCarImage> carImages;
+    private List<ResolvedHashtag> hashtags;
+
+    private ResolvedCar(Long carId, Integer price, Integer year, Long odometer, String region, LocalDateTime postingDate, Long userId) {
         this.carId = carId;
         this.price = price;
         this.year = year;
         this.odometer = odometer;
         this.region = region;
         this.postingDate = postingDate;
-        this.imgFilePath = imgFilePath;
-        this.imgHashName = imgHashName;
-        this.imgExt = imgExt;
+        this.userId = userId;
+    }
+
+    public static ResolvedCar of(Long carId, Integer price, Integer year, Long odometer, String region, LocalDateTime postingDate, Long userId) {
+        return new ResolvedCar(carId, price, year, odometer, region, postingDate, userId);
     }
 }

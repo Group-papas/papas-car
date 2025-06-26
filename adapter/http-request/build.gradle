@@ -1,0 +1,4 @@
+dependencies {
+    implementation(project(":adapter:http-request"))
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+}

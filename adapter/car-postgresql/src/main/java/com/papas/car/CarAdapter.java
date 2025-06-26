@@ -1,5 +1,7 @@
 package com.papas.car;
 
+import com.papas.ApplicationException;
+import com.papas.Errors;
 import com.papas.carhashtag.CarHashtagEntity;
 import com.papas.carhashtag.CarHashtagMappingEntity;
 import com.papas.carhashtag.CarHashtagMappingRepository;
@@ -11,7 +13,11 @@ import com.papas.carimage.CarImageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Component
@@ -64,7 +70,61 @@ public class CarAdapter implements CarPort{
 
     @Override
     public List<ResolvedCar> readResolvedCars(List<Long> carIds) {
-        List<ResolvedCar> resolvedCars = carRepository.findResolvedCars(carIds);
-        return resolvedCars;
+        List<CarFullInfoDto> carFullInfo = carRepository.findCarFullInfo(carIds);
+        return getResolvedCars(carFullInfo);
     }
+
+    @Override
+    public ResolvedCar getResolvedCar(Long carId) {
+        // 인자를 리스트로 수정하는 이유는 `getResolvedCars` 를 편히 사용하고 싶었다.
+        List<CarFullInfoDto> carFullInfo = carRepository.findCarFullInfo(List.of(carId));
+
+        // 1개밖에 없어야 함.
+        List<ResolvedCar> resolvedCars = getResolvedCars(carFullInfo);
+        if (resolvedCars.size() != 1)
+            throw new ApplicationException(Errors.BAD_REQUEST);
+        return resolvedCars.getFirst();
+    }
+
+    private static ArrayList<ResolvedCar> getResolvedCars(List<CarFullInfoDto> carFullInfo) {
+        Map<Long, ResolvedCar> resolvedCarMap = carFullInfo.stream()
+                .collect(Collectors.groupingBy(CarFullInfoDto::getCarId)) // carId 기준 그룹핑을 먼저하자..
+                .entrySet().stream()
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        entry -> {
+                            List<CarFullInfoDto> group = entry.getValue();
+                            CarFullInfoDto base = group.getFirst();
+                            ResolvedCar resolvedCar = base.resolveCar();
+
+                            // nickname 은 나중에 채워~ 왜냐면 app 을 쪼개버렸기 때문에, 나중에 API 통신으로 채워야 함.
+
+                            // 이미지 리스트 생성 (imgId 기준 중복 제거)
+                            List<ResolvedCarImage> images = group.stream()
+                                    .filter(dto -> dto.getImgId() != null)
+                                    .collect(Collectors.toMap(
+                                            CarFullInfoDto::getImgId,
+                                            dto -> ResolvedCarImage.of(dto.getImgId(), dto.getImgFilePath(), dto.getImgHashName(), dto.getImgExt(), dto.getImgThumbnail())
+                                    ))
+                                    .values().stream().toList();
+
+                            // 해시태그 리스트 생성 (hashtagId 기준 중복 제거)
+                            List<ResolvedHashtag> hashtags = group.stream()
+                                    .filter(dto -> dto.getHashtagId() != null)
+                                    .collect(Collectors.toMap(
+                                            CarFullInfoDto::getHashtagId,
+                                            dto -> ResolvedHashtag.of(dto.getHashtagId(), dto.getHashtagName())
+                                    ))
+                                    .values().stream().toList();
+
+                            resolvedCar.setCarImages(images);
+                            resolvedCar.setHashtags(hashtags);
+
+                            return resolvedCar;
+                        }
+                ));
+        return new ArrayList<>(resolvedCarMap.values());
+    }
+
+
 }
