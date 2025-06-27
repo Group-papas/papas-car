@@ -11,6 +11,7 @@ public interface UserUsecase {
     Users create(Request request);
     Users getUserBy(Long id);
     List<Users> getAllUsers();
+    String getNickname(Long id);
 
     @Data
     class Request {

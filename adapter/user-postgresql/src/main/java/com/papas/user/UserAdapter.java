@@ -29,6 +29,13 @@ public class UserAdapter implements UserPort{
     }
 
     @Override
+    public String findUserNickname(Long id) {
+        return userRepository.findById(id)
+                .map(UserEntity::getNickname)
+                .orElseThrow(() -> new ApplicationException(Errors.NOT_FOUND_EXCEPTION));
+    }
+
+    @Override
     public List<Users> findAllUsers() {
         return userRepository.findAll()
                 .stream()

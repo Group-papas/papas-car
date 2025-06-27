@@ -8,4 +8,5 @@ dependencies {
     api 'com.fasterxml.jackson.core:jackson-annotations'
     api 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310' // Java 8 날짜 지원
     //implementation 'com.fasterxml.jackson.core:jackson-annotations'
+    implementation 'org.springframework.boot:spring-boot-starter'
 }

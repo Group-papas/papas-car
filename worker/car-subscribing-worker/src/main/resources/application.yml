@@ -3,7 +3,6 @@ kafka:
     new-car-event: new-car-event
   group:
     new-car: new-car-event-group
-
 spring:
   kafka:
     bootstrap-servers: localhost:9092

@@ -27,6 +27,8 @@ spring:
   data:
     mongodb:
       uri: mongodb://admin:1234@localhost:27017/papascar?authSource=admin
+    redis:
+      url: redis://localhost:6379
   kafka:
     bootstrap-servers: localhost:9092
     producer:
@@ -42,3 +44,7 @@ spring:
 kafka:
   topic:
     new-car-event: new-car-event
+
+api:
+  user:
+    nickname: http://localhost:8080/users/nickname/{userId}

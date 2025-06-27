@@ -3,14 +3,11 @@ package com.papas.car;
 import com.papas.ApplicationException;
 import com.papas.Errors;
 import com.papas.carimage.CarImage;
-import com.papas.carimage.CarImageEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.ApplicationContextException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
