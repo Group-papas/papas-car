@@ -3,6 +3,8 @@ package com.papas.car;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Objects;
+
 @NoArgsConstructor
 @Data
 public class ResolvedCarImage {
@@ -22,5 +24,18 @@ public class ResolvedCarImage {
 
     public static ResolvedCarImage of(Long imgId, String imgFilePath, String imgHashName, String imgExt, Boolean isThumbnail) {
         return new ResolvedCarImage(imgId, imgFilePath, imgHashName, imgExt, isThumbnail);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ResolvedCarImage that = (ResolvedCarImage) o;
+        return Objects.equals(imgId, that.imgId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(imgId);
     }
 }

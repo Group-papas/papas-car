@@ -1,4 +1,6 @@
-package com.papas.carhashtag;
+package com.papas.car.carhashtag;
+
+import com.papas.carhashtag.CarHashtag;
 
 public class CarHashtagEntityConverter {
     public static CarHashtagEntity toEntity(CarHashtag carHashtag) {

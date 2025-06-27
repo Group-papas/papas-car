@@ -2,21 +2,20 @@ package com.papas.car;
 
 import com.papas.ApplicationException;
 import com.papas.Errors;
-import com.papas.carhashtag.CarHashtagEntity;
-import com.papas.carhashtag.CarHashtagMappingEntity;
-import com.papas.carhashtag.CarHashtagMappingRepository;
-import com.papas.carhashtag.CarHashtagRepository;
+import com.papas.car.carhashtag.CarHashtagEntity;
+import com.papas.car.carhashtag.CarHashtagMappingEntity;
+import com.papas.car.carhashtag.CarHashtagMappingRepository;
+import com.papas.car.carhashtag.CarHashtagRepository;
 import com.papas.carimage.CarImage;
-import com.papas.carimage.CarImageEntity;
-import com.papas.carimage.CarImageEntityConverter;
-import com.papas.carimage.CarImageRepository;
+import com.papas.car.carimage.CarImageEntity;
+import com.papas.car.carimage.CarImageEntityConverter;
+import com.papas.car.carimage.CarImageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -70,6 +69,7 @@ public class CarAdapter implements CarPort{
 
     @Override
     public List<ResolvedCar> readResolvedCars(List<Long> carIds) {
+        if (carIds == null || carIds.isEmpty()) return List.of();
         List<CarFullInfoDto> carFullInfo = carRepository.findCarFullInfo(carIds);
         return getResolvedCars(carFullInfo);
     }
@@ -86,7 +86,7 @@ public class CarAdapter implements CarPort{
         return resolvedCars.getFirst();
     }
 
-    private static ArrayList<ResolvedCar> getResolvedCars(List<CarFullInfoDto> carFullInfo) {
+    private List<ResolvedCar> getResolvedCars(List<CarFullInfoDto> carFullInfo) {
         Map<Long, ResolvedCar> resolvedCarMap = carFullInfo.stream()
                 .collect(Collectors.groupingBy(CarFullInfoDto::getCarId)) // carId 기준 그룹핑을 먼저하자..
                 .entrySet().stream()
@@ -103,25 +103,55 @@ public class CarAdapter implements CarPort{
                             List<ResolvedCarImage> images = group.stream()
                                     .filter(dto -> dto.getImgId() != null)
                                     .collect(Collectors.toMap(
-                                            CarFullInfoDto::getImgId,
-                                            dto -> ResolvedCarImage.of(dto.getImgId(), dto.getImgFilePath(), dto.getImgHashName(), dto.getImgExt(), dto.getImgThumbnail())
+                                            dto -> dto.getImgId().longValue(),
+                                            dto -> ResolvedCarImage.of(dto.getImgId(), dto.getImgFilePath(), dto.getImgHashName(), dto.getImgExt(), dto.getImgThumbnail()),
+                                            (existing, replacement) -> replacement // 중복 키 발생 시 마지막 값으로 덮어쓰기
                                     ))
                                     .values().stream().toList();
+//                            List<ResolvedCarImage> images = group.stream()
+//                                    .filter(dto -> dto.getImgId() != null)
+//                                    .collect(Collectors.collectingAndThen(
+//                                            Collectors.toMap(
+//                                                    dto -> dto.getImgId().longValue(), // 명확히 Long 타입으로 고정
+//                                                    dto -> ResolvedCarImage.of(
+//                                                            dto.getImgId(),
+//                                                            dto.getImgFilePath(),
+//                                                            dto.getImgHashName(),
+//                                                            dto.getImgExt(),
+//                                                            dto.getImgThumbnail()
+//                                                    ),
+//                                                    (existing, replacement) -> replacement // 중복 시 후자 사용
+//                                            ),
+//                                            map -> new ArrayList<>(map.values())
+//                                    ));
 
                             // 해시태그 리스트 생성 (hashtagId 기준 중복 제거)
                             List<ResolvedHashtag> hashtags = group.stream()
                                     .filter(dto -> dto.getHashtagId() != null)
                                     .collect(Collectors.toMap(
                                             CarFullInfoDto::getHashtagId,
-                                            dto -> ResolvedHashtag.of(dto.getHashtagId(), dto.getHashtagName())
+                                            dto -> ResolvedHashtag.of(dto.getHashtagId(), dto.getHashtagName()),
+                                            (existing, replacement) -> replacement // 중복 키 발생 시 마지막 값으로 덮어쓰기
                                     ))
                                     .values().stream().toList();
+//                            List<ResolvedHashtag> hashtags = group.stream()
+//                                    .filter(dto -> dto.getHashtagId() != null)
+//                                    .collect(Collectors.collectingAndThen(
+//                                            Collectors.toMap(
+//                                                    dto -> dto.getHashtagId().longValue(), // key를 Long으로 고정해서 명확화
+//                                                    dto -> ResolvedHashtag.of(dto.getHashtagId(), dto.getHashtagName()),
+//                                                    (existing, replacement) -> replacement // 중복 시 후자 사용
+//                                            ),
+//                                            map -> new ArrayList<>(map.values())
+//                                    ));
+
 
                             resolvedCar.setCarImages(images);
                             resolvedCar.setHashtags(hashtags);
 
                             return resolvedCar;
-                        }
+                        },
+                        (existing, replacement) -> replacement
                 ));
         return new ArrayList<>(resolvedCarMap.values());
     }

@@ -1,4 +1,4 @@
-package com.papas.carhashtag;
+package com.papas.car.carhashtag;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

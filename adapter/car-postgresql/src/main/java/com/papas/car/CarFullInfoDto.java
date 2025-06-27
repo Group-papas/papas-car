@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 /**
  * `CarEntity` 는 `CarImageEntity`, `CarHashtagEntity` 와 각각 1:N 연관관계를 갖고 있다.
@@ -57,7 +58,16 @@ public class CarFullInfoDto {
         return ResolvedCar.of(carId, price, year, odometer, region, postingDate, userId);
     }
 
-    public ResolvedCarImage resolvedCarImage() {
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CarFullInfoDto that = (CarFullInfoDto) o;
+        return Objects.equals(carId, that.carId);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(carId);
     }
 }

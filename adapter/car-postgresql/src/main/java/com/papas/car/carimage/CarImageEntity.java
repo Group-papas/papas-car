@@ -1,4 +1,4 @@
-package com.papas.carimage;
+package com.papas.car.carimage;
 
 import com.papas.car.CarEntity;
 import jakarta.persistence.*;

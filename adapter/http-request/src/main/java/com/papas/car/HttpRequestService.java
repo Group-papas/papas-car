@@ -1,5 +1,6 @@
 package com.papas.car;
 
+import com.papas.user.response.NicknameResponse;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,8 +22,8 @@ public class HttpRequestService implements HttpRequestPort {
     @Value("${api.user.nickname}")
     private String nicknameApiPath;
 
-    @Value("${api.hashtag.name}")
-    private String hashtagApiPath;
+//    @Value("${api.hashtag.name}")
+//    private String hashtagApiPath;
 
     private final WebClient webClient;
 
@@ -41,11 +42,12 @@ public class HttpRequestService implements HttpRequestPort {
 
     @Override
     public List<String> getHashtags(Long carId) {
-        HashtagResponse hashtagResponse = getResponse(hashtagApiPath, Map.of("carId", carId), HashtagResponse.class);
-        if (hashtagResponse == null) {
-            return List.of();
-        }
-        return (hashtagResponse.getData() != null) ? hashtagResponse.getData() : List.of();
+//        HashtagResponse hashtagResponse = getResponse(hashtagApiPath, Map.of("carId", carId), HashtagResponse.class);
+//        if (hashtagResponse == null) {
+//            return List.of();
+//        }
+//        return (hashtagResponse.getData() != null) ? hashtagResponse.getData() : List.of();
+        return List.of();
     }
 
     ////////////////////////////////////ㅋ여기서만 쓰이기도하고~, 귀찮기 때문에 분리하지 않음ㅋ////////////////////////////////////
@@ -71,10 +73,6 @@ public class HttpRequestService implements HttpRequestPort {
                 .block();
     }
 
-    @Data
-    static class NicknameResponse {
-        private String data;
-    }
     @Data
     static class HashtagResponse {
         private List<String> data;

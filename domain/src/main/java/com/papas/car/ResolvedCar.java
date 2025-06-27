@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 @NoArgsConstructor
 @Data
@@ -34,5 +35,18 @@ public class ResolvedCar {
 
     public static ResolvedCar of(Long carId, Integer price, Integer year, Long odometer, String region, LocalDateTime postingDate, Long userId) {
         return new ResolvedCar(carId, price, year, odometer, region, postingDate, userId);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ResolvedCar that = (ResolvedCar) o;
+        return Objects.equals(carId, that.carId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(carId);
     }
 }

@@ -1,4 +1,6 @@
-package com.papas.carimage;
+package com.papas.car.carimage;
+
+import com.papas.carimage.CarImage;
 
 public class CarImageEntityConverter {
 

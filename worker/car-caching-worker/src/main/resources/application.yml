@@ -5,9 +5,11 @@ kafka:
     caching-car: car-caching-group
 
 spring:
+  main:
+    web-application-type: none
   data:
     redis:
-      url: localhost:6379
+      url: redis://localhost:6379
   datasource:
     hikari:
       jdbc-url: jdbc:postgresql://localhost:5432/papascar
@@ -27,3 +29,7 @@ spring:
           fetch_size: 100
   kafka:
     bootstrap-servers: localhost:9092
+
+api:
+  user:
+    nickname: http://localhost:8080/users/nickname/{userId}
