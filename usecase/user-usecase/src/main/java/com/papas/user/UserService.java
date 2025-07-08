@@ -22,6 +22,11 @@ public class UserService implements UserUsecase {
     }
 
     @Override
+    public String getNickname(Long id) {
+        return userPort.findUserNickname(id);
+    }
+
+    @Override
     public List<Users> getAllUsers() {
         return userPort.findAllUsers();
     }

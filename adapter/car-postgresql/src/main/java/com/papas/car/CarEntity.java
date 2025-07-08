@@ -1,7 +1,7 @@
 package com.papas.car;
 
-import com.papas.carhashtag.CarHashtagMappingEntity;
-import com.papas.carimage.CarImageEntity;
+import com.papas.car.carhashtag.CarHashtagMappingEntity;
+import com.papas.car.carimage.CarImageEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -6,4 +6,5 @@ public interface UserPort {
     Users saveUser(Users users);
     Users findUserBy(Long id);
     List<Users> findAllUsers();
+    String findUserNickname(Long id);
 }

@@ -1,0 +1,6 @@
+dependencies {
+    implementation(project(":usecase:core"))
+    implementation(project(":adapter:car-postgresql"))
+    implementation(project(":adapter:redis"))
+    implementation(project(":adapter:http-request"))
+}

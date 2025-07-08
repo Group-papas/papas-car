@@ -1,0 +1,5 @@
+dependencies {
+    implementation(project(":adapter:kafka"))
+    implementation(project(":adapter:redis"))
+    implementation project(":usecase:resolving-car-usecase")
+}

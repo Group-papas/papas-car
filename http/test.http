@@ -94,7 +94,7 @@ Content-Type: application/json
   "region": "ulsan",
   "userId": 10000,
   "imgIds": [1],
-  "hashtags": ["good", "hyundai"]
+  "hashtags": ["good", "hyundai", "korea"]
 }
 
 ###
